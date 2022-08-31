@@ -136,6 +136,9 @@ class ZLPhotoPreviewPopInteractiveTransition: UIPercentDrivenInteractiveTransiti
         guard let fromVC = context.viewController(forKey: .from) as? ZLPhotoPreviewController, let toVC = context.viewController(forKey: .to) as? ZLThumbnailViewController else {
             return
         }
+        guard let cell = fromVC.collectionView.cellForItem(at: IndexPath(row: fromVC.currentIndex, section: 0)) as? ZLPreviewBaseCell else {
+            return
+        }
         let containerView = context.containerView
         
         containerView.addSubview(toVC.view)
@@ -143,8 +146,6 @@ class ZLPhotoPreviewPopInteractiveTransition: UIPercentDrivenInteractiveTransiti
         shadowView = UIView(frame: containerView.bounds)
         shadowView?.backgroundColor = UIColor.black
         containerView.addSubview(shadowView!)
-        
-        let cell = fromVC.collectionView.cellForItem(at: IndexPath(row: fromVC.currentIndex, section: 0)) as! ZLPreviewBaseCell
         
         let fromImageViewFrame = cell.animateImageFrame(convertTo: containerView)
         
